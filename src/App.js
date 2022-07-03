@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import {register} from './firebase';
+import { useState } from 'react';
+import { async } from '@firebase/util';
+
 
 function App() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const user = await register(email, password);
+    console.log(user);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       <h1> </h1>
+       <form onSubmit={handleSubmit}>
+          <label>Email:</label>
+          <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+          <label>Password:</label>
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <button type='submit'>Kayıt Ol</button>
+       </form>
     </div>
   );
 }
